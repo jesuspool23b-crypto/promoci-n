@@ -147,13 +147,17 @@
 
     <script>
         function calcular(operacion) {
-            // Obtenemos los valores de los inputs y los convertimos a números flotantes
-            const n1 = parseFloat(document.getElementById('num1').value);
-            const n2 = parseFloat(document.getElementById('num2').value);
+            // Obtenemos las referencias a los elementos del DOM
+            const input1 = document.getElementById('num1');
+            const input2 = document.getElementById('num2');
             const contenedorResultado = document.getElementById('resultado');
 
-            // Validación: Verificar si los campos están vacíos
-            if (isNaN(n1) || !num1.value || isNaN(n2) || !num2.value) {
+            // Obtenemos los valores de los inputs y los convertimos a números flotantes
+            const n1 = parseFloat(input1.value);
+            const n2 = parseFloat(input2.value);
+
+            // Validación: Verificar si los campos están vacíos o no son números válidos
+            if (!input1.value || !input2.value || isNaN(n1) || isNaN(n2)) {
                 contenedorResultado.innerText = "Error: Ingresa ambos números";
                 contenedorResultado.style.color = "#e74c3c";
                 return;

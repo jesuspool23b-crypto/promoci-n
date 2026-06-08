@@ -13,11 +13,55 @@
         }
 
         body {
-            background-color: #1e3a8a;
+            background: linear-gradient(135deg, #1e3a8a 0%, #2c5aa0 100%);
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Contenedor de estrellas */
+        .stars-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Estilos para las estrellas */
+        .star {
+            position: absolute;
+            background: radial-gradient(circle, #ffeb3b 0%, #fdd835 50%, transparent 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 235, 59, 0.8);
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .star {
+            animation: twinkle 3s infinite, float 6s infinite ease-in-out;
         }
 
         .calculator-card {
@@ -27,6 +71,8 @@
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
             width: 100%;
             max-width: 400px;
+            position: relative;
+            z-index: 10;
         }
 
         h2 {
@@ -127,6 +173,8 @@
     </style>
 </head>
 <body>
+    <!-- Contenedor de estrellas -->
+    <div class="stars-container" id="starsContainer"></div>
 
     <div class="calculator-card">
         <h2>Calculadora</h2>
@@ -156,6 +204,46 @@
     </div>
 
     <script>
+        // Función para generar estrellas
+        function generarEstrellas() {
+            const container = document.getElementById('starsContainer');
+            const numeroEstrellas = 100;
+
+            for (let i = 0; i < numeroEstrellas; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+
+                // Tamaño aleatorio para las estrellas
+                const tamaño = Math.random() * 3 + 1;
+                star.style.width = tamaño + 'px';
+                star.style.height = tamaño + 'px';
+
+                // Posición aleatoria
+                star.style.left = Math.random() * window.innerWidth + 'px';
+                star.style.top = Math.random() * window.innerHeight + 'px';
+
+                // Duración de animación aleatoria
+                const duracion = Math.random() * 2 + 2;
+                star.style.animationDuration = duracion + 's';
+
+                // Retraso aleatorio
+                const retraso = Math.random() * 3;
+                star.style.animationDelay = retraso + 's';
+
+                container.appendChild(star);
+            }
+        }
+
+        // Llamar a la función al cargar la página
+        generarEstrellas();
+
+        // Regenerar estrellas al cambiar el tamaño de la ventana
+        window.addEventListener('resize', () => {
+            const container = document.getElementById('starsContainer');
+            container.innerHTML = '';
+            generarEstrellas();
+        });
+
         function calcular(operacion) {
             // Obtenemos las referencias a los elementos del DOM
             const input1 = document.getElementById('num1');

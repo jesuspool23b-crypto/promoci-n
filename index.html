@@ -33,18 +33,23 @@
             z-index: 1;
         }
 
-        /* Estilos para las estrellas */
+        /* Estilos para las estrellas con forma de estrella de 5 picos */
         .star {
             position: absolute;
-            background: radial-gradient(circle, #ffeb3b 0%, #fdd835 50%, transparent 100%);
-            border-radius: 50%;
-            box-shadow: 0 0 10px rgba(255, 235, 59, 0.8);
+            filter: drop-shadow(0 0 8px rgba(255, 235, 59, 0.8));
             animation: twinkle 3s infinite;
+        }
+
+        /* SVG estrella dentro del contenedor */
+        svg {
+            display: block;
+            width: 100%;
+            height: 100%;
         }
 
         @keyframes twinkle {
             0%, 100% {
-                opacity: 0.3;
+                opacity: 0.4;
             }
             50% {
                 opacity: 1;
@@ -204,33 +209,63 @@
     </div>
 
     <script>
+        // Función para crear una estrella de 5 picos con SVG
+        function crearEstrellaSVG(tamaño) {
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('viewBox', '0 0 100 100');
+            svg.setAttribute('width', tamaño);
+            svg.setAttribute('height', tamaño);
+            
+            // Crear los puntos de la estrella de 5 picos
+            const puntos = [];
+            for (let i = 0; i < 10; i++) {
+                const angulo = (i * Math.PI) / 5 - Math.PI / 2;
+                const radio = i % 2 === 0 ? 50 : 20;
+                const x = 50 + radio * Math.cos(angulo);
+                const y = 50 + radio * Math.sin(angulo);
+                puntos.push([x, y]);
+            }
+            
+            // Crear el polígono
+            const polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+            polygon.setAttribute('points', puntos.map(p => p.join(',')).join(' '));
+            polygon.setAttribute('fill', '#ffeb3b');
+            polygon.setAttribute('stroke', '#fdd835');
+            polygon.setAttribute('stroke-width', '2');
+            
+            svg.appendChild(polygon);
+            return svg;
+        }
+
         // Función para generar estrellas
         function generarEstrellas() {
             const container = document.getElementById('starsContainer');
-            const numeroEstrellas = 100;
+            const numeroEstrellas = 80;
 
             for (let i = 0; i < numeroEstrellas; i++) {
-                const star = document.createElement('div');
-                star.classList.add('star');
+                const starContainer = document.createElement('div');
+                starContainer.classList.add('star');
 
-                // Tamaño aleatorio para las estrellas
-                const tamaño = Math.random() * 3 + 1;
-                star.style.width = tamaño + 'px';
-                star.style.height = tamaño + 'px';
+                // Tamaño más grande para las estrellas
+                const tamaño = Math.random() * 8 + 12;
+
+                // Crear el SVG de la estrella
+                const svgStar = crearEstrellaSVG(tamaño);
+                starContainer.appendChild(svgStar);
 
                 // Posición aleatoria
-                star.style.left = Math.random() * window.innerWidth + 'px';
-                star.style.top = Math.random() * window.innerHeight + 'px';
+                starContainer.style.left = Math.random() * window.innerWidth + 'px';
+                starContainer.style.top = Math.random() * window.innerHeight + 'px';
 
                 // Duración de animación aleatoria
                 const duracion = Math.random() * 2 + 2;
-                star.style.animationDuration = duracion + 's';
+                starContainer.style.animationDuration = duracion + 's';
 
                 // Retraso aleatorio
                 const retraso = Math.random() * 3;
-                star.style.animationDelay = retraso + 's';
+                starContainer.style.animationDelay = retraso + 's';
 
-                container.appendChild(star);
+                container.appendChild(starContainer);
             }
         }
 

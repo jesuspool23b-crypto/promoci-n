@@ -13,7 +13,7 @@
         }
 
         body {
-            background-color: #f4f7f6;
+            background-color: #1e3a8a;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -24,15 +24,16 @@
             background-color: #ffffff;
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
             width: 100%;
             max-width: 400px;
         }
 
         h2 {
             text-align: center;
-            color: #333;
+            color: #1e3a8a;
             margin-bottom: 20px;
+            font-size: 28px;
         }
 
         .input-group {
@@ -42,8 +43,9 @@
         label {
             display: block;
             margin-bottom: 5px;
-            color: #666;
+            color: #1e3a8a;
             font-size: 14px;
+            font-weight: 600;
         }
 
         input[type="number"] {
@@ -57,7 +59,7 @@
         }
 
         input[type="number"]:focus {
-            border-color: #4a90e2;
+            border-color: #1e3a8a;
         }
 
         .btn-container {
@@ -95,30 +97,31 @@
         .btn-dividir:hover { background-color: #2980b9; }
 
         .btn-limpiar {
-            background-color: #95a5a6;
+            background-color: #1e3a8a;
             grid-column: span 2;
         }
-        .btn-limpiar:hover { background-color: #7f8c8d; }
+        .btn-limpiar:hover { background-color: #1a2f6f; }
 
         .result-box {
             margin-top: 25px;
             padding: 15px;
-            background-color: #f8f9fa;
-            border-left: 5px solid #4a90e2;
+            background-color: #f0f4ff;
+            border-left: 5px solid #1e3a8a;
             border-radius: 4px;
             text-align: center;
         }
 
         .result-box p {
             font-size: 14px;
-            color: #777;
+            color: #1e3a8a;
+            font-weight: 600;
         }
 
         .result-box span {
             display: block;
             font-size: 24px;
             font-weight: bold;
-            color: #333;
+            color: #1e3a8a;
             margin-top: 5px;
         }
     </style>
@@ -196,7 +199,7 @@
 
             // Mostramos el resultado final en pantalla, limitando los decimales si los hay
             contenedorResultado.innerText = Number(resultado.toFixed(4));
-            contenedorResultado.style.color = "#333";
+            contenedorResultado.style.color = "#1e3a8a";
         }
 
         function limpiar() {
@@ -207,7 +210,7 @@
             // Limpiamos el resultado y lo restablecemos a 0
             const contenedorResultado = document.getElementById('resultado');
             contenedorResultado.innerText = '0';
-            contenedorResultado.style.color = '#333';
+            contenedorResultado.style.color = '#1e3a8a';
         }
     </script>
 
